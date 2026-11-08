@@ -1,0 +1,52 @@
+name: cedrick_gps
+description: "CEDRICK GPS — Plataforma Profesional de Rastreo y Telemetría Vehicular y Móvil"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # UI & Diseño Premium Obsidian/Gold
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  
+  # Mapas y Geolocalización
+  maplibre_gl: ^0.16.0
+  geolocator: ^13.0.1
+  flutter_background_service: ^5.0.8
+  
+  # Red y Comunicación con Servidor Central Traccar
+  http: ^1.2.2
+  web_socket_channel: ^3.0.1
+  flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.3.2
+  connectivity_plus: ^6.0.5
+  
+  # Notificaciones & Alertas
+  flutter_local_notifications: ^17.2.2
+  firebase_core: ^3.3.0
+  firebase_messaging: ^15.0.4
+  battery_plus: ^6.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/cedrick_gold_logo.png"
+  adaptive_icon_background: "#050505"
+  adaptive_icon_foreground: "assets/icon/cedrick_gold_foreground.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icon/

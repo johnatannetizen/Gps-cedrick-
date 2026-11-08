@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+<properties>
+    <!-- ============================================================== -->
+    <!-- CEDRICK GPS — CONFIGURACIÓN CENTRAL DE SERVIDOR TRACCAR       -->
+    <!-- Marca Oficial: CEDRICK GPS | https://cedrickgps.com            -->
+    <!-- ============================================================== -->
+
+    <!-- Base de datos PostgreSQL para alto volumen de telemetría -->
+    <entry key='database.driver'>org.postgresql.Driver</entry>
+    <entry key='database.url'>jdbc:postgresql://${DATABASE_HOST:db}:${DATABASE_PORT:5432}/${DATABASE_NAME:cedrick_gps}?sslmode=prefer</entry>
+    <entry key='database.user'>${DATABASE_USER:cedrick_admin}</entry>
+    <entry key='database.password'>${DATABASE_PASSWORD:CedrickSecure2026!}</entry>
+    <entry key='database.maxPoolSize'>50</entry>
+
+    <!-- Servidor Web y API REST -->
+    <entry key='web.enable'>true</entry>
+    <entry key='web.port'>8082</entry>
+    <entry key='web.path'>./traccar-web/dist</entry>
+    <entry key='web.console'>false</entry>
+    <entry key='web.sanitize'>true</entry>
+
+    <!-- Protocolo OsmAnd / CEDRICK GPS TRACKER (Móviles Android / iOS) -->
+    <entry key='osmand.port'>5055</entry>
+
+    <!-- Protocolos de Rastreadores Físicos vehiculares principales -->
+    <entry key='gt06.port'>5023</entry>
+    <entry key='coban.port'>5001</entry>
+    <entry key='teltonika.port'>5027</entry>
+    <entry key='suntech.port'>5011</entry>
+    <entry key='tk103.port'>5002</entry>
+    <entry key='concox.port'>5023</entry>
+    <entry key='queclink.port'>5004</entry>
+    <entry key='meitrack.port'>5020</entry>
+    <entry key='h02.port'>5013</entry>
+
+    <!-- Motor de Geocodificación Inversa (OpenStreetMap Nominatim) -->
+    <entry key='geocoder.enable'>true</entry>
+    <entry key='geocoder.type'>nominatim</entry>
+    <entry key='geocoder.url'>https://nominatim.openstreetmap.org/reverse</entry>
+    <entry key='geocoder.reuseDistance'>100</entry>
+    <entry key='geocoder.cacheSize'>10000</entry>
+
+    <!-- Notificaciones y Eventos en Tiempo Real -->
+    <entry key='event.enable'>true</entry>
+    <entry key='event.geofenceHandler'>true</entry>
+    <entry key='event.motionHandler'>true</entry>
+    <entry key='event.overspeedHandler'>true</entry>
+    <entry key='event.commandResultHandler'>true</entry>
+    <entry key='processing.computedAttributes.enable'>true</entry>
+
+    <!-- Notificaciones Push Firebase Cloud Messaging (FCM) para CEDRICK Mobile -->
+    <entry key='notificator.firebase.key'>${FIREBASE_SERVER_KEY:}</entry>
+
+    <!-- Retención y Optimización de Telemetría (Ley 1581 de Datos) -->
+    <entry key='database.positionsHistoryDays'>365</entry>
+    <entry key='filter.enable'>true</entry>
+    <entry key='filter.future'>86400</entry>
+    <entry key='filter.duplicate'>true</entry>
+    <entry key='filter.zero'>true</entry>
+</properties>

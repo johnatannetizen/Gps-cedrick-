@@ -1,0 +1,6 @@
+{
+  "name": "CEDRICK GPS - Plataforma Profesional de Rastreo y Telemetría",
+  "description": "Ecosistema unificado de rastreo GPS con backend central Traccar, panel web React/MapLibre, cliente móvil Flutter y módulo CEDRICK GPS Tracker.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

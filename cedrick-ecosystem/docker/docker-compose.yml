@@ -1,0 +1,70 @@
+version: '3.8'
+
+# ==============================================================
+# CEDRICK GPS — INFRAESTRUCTURA PRODUCTIVA EN DOCKER
+# Orquestación integral: Servidor Java + PostgreSQL 16 + Web Nginx
+# ==============================================================
+
+services:
+  # Base de Datos PostgreSQL
+  cedrick-db:
+    image: postgres:16-alpine
+    container_name: cedrick-gps-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-cedrick_gps}
+      POSTGRES_USER: ${DATABASE_USER:-cedrick_admin}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-CedrickSecure2026!}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../server/schema-cedrick.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - cedrick-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servidor Central Traccar (Motor Java)
+  cedrick-server:
+    image: traccar/traccar:latest
+    container_name: cedrick-gps-backend
+    restart: unless-stopped
+    depends_on:
+      cedrick-db:
+        condition: service_healthy
+    volumes:
+      - ../server/traccar.xml:/opt/traccar/conf/traccar.xml:ro
+      - traccar_logs:/opt/traccar/logs
+    ports:
+      - "8082:8082"  # REST API & WebSocket
+      - "5055:5055"  # CEDRICK GPS TRACKER / OsmAnd protocol (Móviles)
+      - "5023:5023"  # Protocolo GT06 / Concox (Vehicular)
+      - "5001:5001"  # Protocolo Coban (Vehicular)
+      - "5027:5027"  # Protocolo Teltonika (Flotas pesadas)
+    networks:
+      - cedrick-network
+
+  # Consola Web CEDRICK GPS (React + Nginx)
+  cedrick-web:
+    build:
+      context: ../web
+      dockerfile: Dockerfile
+    container_name: cedrick-gps-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - cedrick-server
+    networks:
+      - cedrick-network
+
+networks:
+  cedrick-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  traccar_logs:
